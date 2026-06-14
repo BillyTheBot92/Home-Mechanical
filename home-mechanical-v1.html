@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#FF6B1A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Home Mechanical">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Home Mechanical — Diagnostic Auto Pro</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root{
+  --navy:#16233D;--navy-soft:#26395C;--navy-line:#3A4F73;
+  --orange:#FF6B1A;--orange-soft:#FF8A47;--orange-glow:rgba(255,107,26,.45);
+  --bg:#EEF1F6;--bg-2:#F7F9FC;--card:#FFFFFF;--card-line:#E2E8F2;
+  --text:#16233D;--text-mut:#5C6B85;--text-faint:#9AA7BE;
+  --green:#1FB87A;--red:#E8444C;--amber:#F5A623;
+  --shadow:0 8px 30px rgba(22,35,61,.08);--shadow-lg:0 18px 50px rgba(22,35,61,.14);
+  --r:18px;--r-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:radial-gradient(1200px 400px at 50% -10%, rgba(255,107,26,.06), transparent 60%),linear-gradient(180deg,var(--bg-2),var(--bg) 30%);position:relative;padding-bottom:96px}
+.topbar{position:sticky;top:0;z-index:50;padding:calc(18px + env(safe-area-inset-top)) 20px 14px;background:rgba(247,249,252,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--card-line);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(140deg,var(--navy),var(--navy-soft));display:grid;place-items:center;position:relative;overflow:hidden;box-shadow:0 4px 14px rgba(22,35,61,.25)}
+.brand-logo svg{width:26px;height:26px;position:relative;z-index:2}
+.brand-logo::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 80%,var(--orange-glow),transparent 60%)}
+.brand-txt h1{font-family:'Sora';font-size:16px;font-weight:800;letter-spacing:-.3px;line-height:1}
+.brand-txt span{font-size:10px;color:var(--text-faint);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.conn-pill{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:30px;background:var(--card);border:1px solid var(--card-line);font-size:12px;font-weight:600;color:var(--text-mut);box-shadow:var(--shadow)}
+.conn-dot{width:8px;height:8px;border-radius:50%;background:var(--green);position:relative}
+.conn-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:var(--green);opacity:.3;animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.4);opacity:0}}
+.view{display:none;padding:22px 20px 10px;animation:fade .4s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.view-head{margin-bottom:20px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.view-head h2{font-family:'Sora';font-size:26px;font-weight:800;letter-spacing:-.6px}
+.view-head p{font-size:13px;color:var(--text-mut);margin-top:4px}
+.vehicle-card{background:linear-gradient(135deg,var(--navy),var(--navy-soft));border-radius:var(--r);padding:20px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.vehicle-card::before{content:"";position:absolute;top:-40%;right:-15%;width:240px;height:240px;background:radial-gradient(circle,var(--orange-glow),transparent 65%)}
+.vc-circuit{position:absolute;inset:0;opacity:.13;pointer-events:none}
+.vc-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
+.vc-label{font-size:11px;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.vc-name{font-family:'Sora';font-size:20px;font-weight:700;color:#fff;margin-top:3px}
+.vc-vin{font-family:'JetBrains Mono';font-size:11px;color:rgba(255,255,255,.5);margin-top:5px;letter-spacing:.5px}
+.vc-badge{background:rgba(255,107,26,.18);border:1px solid rgba(255,107,26,.4);color:var(--orange-soft);font-size:11px;font-weight:700;padding:6px 11px;border-radius:20px;backdrop-filter:blur(8px)}
+.vc-stats{display:flex;gap:22px;margin-top:18px;position:relative;z-index:2}
+.vc-stat .n{font-family:'Sora';font-size:22px;font-weight:800;color:#fff}
+.vc-stat .n .u{font-size:12px;color:rgba(255,255,255,.5);font-weight:600}
+.vc-stat .l{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.gauge-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}
+.gauge{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);padding:16px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.gauge-ring{position:relative;width:90px;height:90px;margin:4px auto 8px}
+.gauge-ring svg{transform:rotate(-90deg)}
+.gauge-ring .val{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.gauge-ring .val b{font-family:'Sora';font-size:21px;font-weight:800;line-height:1}
+.gauge-ring .val s{font-size:9px;color:var(--text-faint);text-decoration:none;font-weight:600;text-transform:uppercase}
+.gauge-name{text-align:center;font-size:12px;font-weight:600;color:var(--text-mut)}
+.gauge.live::after{content:"";position:absolute;top:12px;right:12px;width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,184,122,.5)}70%{box-shadow:0 0 0 6px rgba(31,184,122,0)}100%{box-shadow:0 0 0 0 rgba(31,184,122,0)}}
+.sec-title{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 13px}
+.sec-title h3{font-family:'Sora';font-size:15px;font-weight:700}
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.mod{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);padding:17px;cursor:pointer;transition:.25s;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.mod:active{transform:scale(.97)}
+.mod-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;margin-bottom:12px;position:relative}
+.mod-ico svg{width:23px;height:23px;position:relative;z-index:2}
+.mod-ico.i-live{background:linear-gradient(135deg,#FFEDD9,#FFD9B8)}.mod-ico.i-live svg{color:var(--orange)}
+.mod-ico.i-dtc{background:linear-gradient(135deg,#FEE2E4,#FBC9CD)}.mod-ico.i-dtc svg{color:var(--red)}
+.mod-ico.i-hidden{background:linear-gradient(135deg,#E3ECFF,#C9DAFB)}.mod-ico.i-hidden svg{color:#3B6FE8}
+.mod-ico.i-perf{background:linear-gradient(135deg,#D9F7EC,#B8EFD9)}.mod-ico.i-perf svg{color:var(--green)}
+.mod-ico.i-tuning{background:linear-gradient(135deg,#F1E6FF,#DEC9FB)}.mod-ico.i-tuning svg{color:#8B45D6}
+.mod h4{font-family:'Sora';font-size:14px;font-weight:700;margin-bottom:3px}
+.mod p{font-size:11px;color:var(--text-mut);line-height:1.4}
+.mod .arrow{position:absolute;top:18px;right:16px;color:var(--text-faint);transition:.25s}
+.mod:active .arrow{transform:translateX(3px);color:var(--orange)}
+.health{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);padding:17px;margin-bottom:6px;box-shadow:var(--shadow)}
+.health-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.health-top h4{font-family:'Sora';font-size:14px;font-weight:700}
+.health-score{font-family:'Sora';font-size:15px;font-weight:800;color:var(--green)}
+.health-bar{height:8px;border-radius:8px;background:var(--bg);overflow:hidden}
+.health-bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),#3FD693);width:88%}
+.health-items{display:flex;gap:6px;margin-top:13px;flex-wrap:wrap}
+.hchip{font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px;display:flex;align-items:center;gap:5px}
+.hchip.ok{background:#E5F7F0;color:#138A5A}.hchip.warn{background:#FEF3DC;color:#B97D0A}
+.live-hero{background:linear-gradient(135deg,var(--navy),var(--navy-soft));border-radius:var(--r);padding:22px 20px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.live-hero::after{content:"";position:absolute;bottom:-30%;left:-10%;width:200px;height:200px;background:radial-gradient(circle,var(--orange-glow),transparent 65%)}
+.lh-rpm{text-align:center;position:relative;z-index:2}
+.lh-rpm .big{font-family:'Sora';font-size:54px;font-weight:800;color:#fff;line-height:.9;letter-spacing:-1px}
+.lh-rpm .big .u{font-size:16px;color:var(--orange-soft);font-weight:600}
+.lh-rpm .lbl{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.rpm-track{height:10px;border-radius:10px;background:rgba(255,255,255,.12);margin-top:16px;overflow:hidden;position:relative;z-index:2}
+.rpm-track i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,var(--orange),#FFB347);transition:width .3s;box-shadow:0 0 12px var(--orange-glow)}
+.live-list{display:flex;flex-direction:column;gap:11px}
+.live-row{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r-sm);padding:15px 17px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
+.live-row .ico{width:38px;height:38px;border-radius:11px;background:var(--bg);display:grid;place-items:center;flex-shrink:0}
+.live-row .ico svg{width:20px;height:20px;color:var(--orange)}
+.live-row .meta{flex:1;min-width:0}
+.live-row .meta .name{font-size:13px;font-weight:600;color:var(--text)}
+.live-row .meta .sub{font-size:11px;color:var(--text-faint);font-family:'JetBrains Mono';margin-top:1px}
+.live-row .read{font-family:'Sora';font-size:19px;font-weight:800;text-align:right}
+.live-row .read .u{font-size:11px;color:var(--text-faint);font-weight:600}
+.dtc-summary{background:linear-gradient(135deg,#2A1518,#3D1E22);border-radius:var(--r);padding:20px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.dtc-summary .count{font-family:'Sora';font-size:42px;font-weight:800;line-height:1}
+.dtc-summary .lbl{font-size:13px;opacity:.7;margin-top:4px}
+.dtc-summary .dtc-ico{position:absolute;top:18px;right:20px;opacity:.25}
+.dtc-summary .dtc-ico svg{width:60px;height:60px}
+.dtc-card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r-sm);padding:16px;margin-bottom:11px;box-shadow:var(--shadow);border-left:3px solid var(--red)}
+.dtc-card.pending{border-left-color:var(--amber)}
+.dtc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.dtc-code{font-family:'JetBrains Mono';font-size:16px;font-weight:700;color:var(--navy)}
+.dtc-sev{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px}
+.dtc-sev.high{background:#FDE5E7;color:var(--red)}.dtc-sev.med{background:#FEF3DC;color:#B97D0A}
+.dtc-desc{font-size:13px;color:var(--text);font-weight:500;margin-bottom:5px}
+.dtc-sys{font-size:11px;color:var(--text-mut)}
+.dtc-actions{display:flex;gap:10px;margin-top:20px}
+.brand-select{width:100%;background:var(--card);border:1px solid var(--card-line);border-radius:var(--r-sm);padding:14px 16px;font-size:14px;font-weight:600;color:var(--text);margin-bottom:16px;font-family:'Inter';box-shadow:var(--shadow);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%235C6B85' stroke-width='2'%3E%3Cpath d='M6 9l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.opt-card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r-sm);padding:16px;margin-bottom:11px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
+.opt-meta{flex:1}
+.opt-meta h4{font-family:'Sora';font-size:14px;font-weight:700;margin-bottom:3px}
+.opt-meta p{font-size:11.5px;color:var(--text-mut);line-height:1.4}
+.opt-meta .risk{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px}
+.risk.low{background:#E5F7F0;color:#138A5A}.risk.med{background:#FEF3DC;color:#B97D0A}
+.toggle{width:48px;height:28px;border-radius:30px;background:var(--bg);position:relative;cursor:pointer;flex-shrink:0;border:1px solid var(--card-line);transition:.25s}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.2);transition:.25s}
+.toggle.on{background:var(--orange);border-color:var(--orange)}.toggle.on::after{transform:translateX(20px)}
+.perf-hero{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px}
+.perf-big{background:linear-gradient(135deg,var(--navy),var(--navy-soft));border-radius:var(--r);padding:18px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.perf-big::after{content:"";position:absolute;top:-20%;right:-20%;width:120px;height:120px;background:radial-gradient(circle,var(--orange-glow),transparent 65%)}
+.perf-big .v{font-family:'Sora';font-size:30px;font-weight:800;position:relative;z-index:2}
+.perf-big .v .u{font-size:13px;color:var(--orange-soft)}
+.perf-big .l{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-top:3px;position:relative;z-index:2}
+.perf-timer{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
+.perf-timer .v{font-family:'Sora';font-size:30px;font-weight:800;color:var(--orange)}
+.perf-timer .v .u{font-size:13px;color:var(--text-faint)}
+.perf-timer .l{font-size:11px;color:var(--text-mut);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.graph-card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.graph-card h4{font-family:'Sora';font-size:14px;font-weight:700;margin-bottom:3px}
+.graph-card .sub{font-size:11px;color:var(--text-mut);margin-bottom:14px}
+.spark{width:100%;height:90px}
+.start-btn{width:100%;padding:16px;border:none;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--orange),var(--orange-soft));color:#fff;font-family:'Sora';font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px var(--orange-glow);transition:.25s}
+.start-btn:active{transform:scale(.98)}
+.warn-banner{background:linear-gradient(135deg,#3D1E22,#2A1518);border-radius:var(--r);padding:18px;margin-bottom:16px;color:#fff;display:flex;gap:13px;box-shadow:var(--shadow-lg)}
+.warn-banner .wico{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:rgba(232,68,76,.2);display:grid;place-items:center}
+.warn-banner .wico svg{width:22px;height:22px;color:#FF6B72}
+.warn-banner h4{font-family:'Sora';font-size:14px;font-weight:700;margin-bottom:4px}
+.warn-banner p{font-size:12px;opacity:.75;line-height:1.5}
+.tune-card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r-sm);padding:17px;margin-bottom:13px;box-shadow:var(--shadow)}
+.tune-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.tune-head h4{font-family:'Sora';font-size:14px;font-weight:700}
+.tune-val{font-family:'JetBrains Mono';font-size:15px;font-weight:700;color:var(--orange)}
+.tune-card p{font-size:11.5px;color:var(--text-mut);margin-bottom:14px;line-height:1.4}
+.slider-wrap{position:relative}
+.slider{-webkit-appearance:none;width:100%;height:7px;border-radius:8px;background:linear-gradient(90deg,var(--orange) 50%,var(--bg) 50%);outline:none}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--orange);cursor:pointer;box-shadow:0 3px 10px var(--orange-glow)}
+.slider-scale{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--text-faint);font-family:'JetBrains Mono'}
+.locked{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--bg);border-radius:var(--r-sm);font-size:12px;font-weight:600;color:var(--text-mut);margin-top:6px}
+.locked svg{width:16px;height:16px}
+.botnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);border-top:1px solid var(--card-line);display:flex;justify-content:space-around;align-items:center;padding:10px 8px calc(10px + env(safe-area-inset-bottom))}
+.nav-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 12px;border-radius:14px;transition:.25s;position:relative;flex:1}
+.nav-btn svg{width:23px;height:23px;color:var(--text-faint);transition:.25s}
+.nav-btn span{font-size:10px;font-weight:600;color:var(--text-faint);transition:.25s}
+.nav-btn.active svg{color:var(--orange)}.nav-btn.active span{color:var(--orange)}
+.nav-btn.active::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%);width:30px;height:3px;border-radius:3px;background:var(--orange);box-shadow:0 0 10px var(--orange-glow)}
+.nav-btn:active{background:var(--bg)}
+.nav-scan{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--orange-soft));display:grid;place-items:center;margin-top:-22px;box-shadow:0 8px 22px var(--orange-glow);flex:0 0 auto;border:4px solid var(--bg-2);cursor:pointer;transition:.25s}
+.nav-scan svg{width:26px;height:26px;color:#fff}
+.nav-scan:active{transform:scale(.92)}
+.btn{flex:1;padding:14px;border:none;border-radius:var(--r-sm);font-family:'Sora';font-size:14px;font-weight:700;cursor:pointer;transition:.25s}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-soft));color:#fff;box-shadow:0 6px 18px var(--orange-glow)}
+.btn-ghost{background:var(--card);border:1px solid var(--card-line);color:var(--text)}
+.btn:active{transform:scale(.98)}
+.demo-tag{text-align:center;font-size:10px;color:var(--text-faint);padding:14px 0 4px;letter-spacing:.5px}
+.install-banner{display:none;position:fixed;bottom:108px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:408px;z-index:120;background:var(--navy);color:#fff;border-radius:var(--r);padding:14px 16px;align-items:center;gap:13px;box-shadow:var(--shadow-lg)}
+.install-banner.show{display:flex;animation:fade .4s ease}
+.install-banner .ib-ico{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--orange),var(--orange-soft));display:grid;place-items:center;flex-shrink:0}
+.install-banner .ib-ico svg{width:22px;height:22px;color:#fff}
+.install-banner .ib-txt{flex:1}
+.install-banner .ib-txt b{font-family:'Sora';font-size:13px;display:block}
+.install-banner .ib-txt span{font-size:11px;opacity:.7}
+.install-banner button{background:var(--orange);border:none;color:#fff;font-family:'Sora';font-weight:700;font-size:12px;padding:9px 14px;border-radius:10px;cursor:pointer}
+.install-banner .ib-close{background:transparent;color:rgba(255,255,255,.5);padding:6px;font-size:18px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF8A47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6.5 17l1.2-4.5a2 2 0 011.9-1.5h4.8a2 2 0 011.9 1.5L17.5 17M7 17v2M17 17v2"/><circle cx="8.5" cy="13.5" r=".5" fill="#FF8A47"/></svg>
+      </div>
+      <div class="brand-txt"><h1>Home Mechanical</h1><span>Diagnostic Pro</span></div>
+    </div>
+    <div class="conn-pill" id="connPill"><span class="conn-dot"></span><span id="connTxt">vLinker MC+</span></div>
+  </div>
+
+  <div class="view active" id="view-dash">
+    <div class="view-head"><div class="eyebrow">Tableau de bord</div><h2>Bonjour 👋</h2><p>Votre véhicule est connecté et prêt</p></div>
+    <div class="vehicle-card">
+      <svg class="vc-circuit" viewBox="0 0 400 200" fill="none" stroke="#FF8A47" stroke-width="1"><path d="M0 40h80l20 20h120M400 80h-60l-20-20H180M0 140h100l30-30M400 150h-90l-25 25"/><circle cx="200" cy="60" r="3" fill="#FF8A47"/><circle cx="180" cy="120" r="3" fill="#FF8A47"/><circle cx="310" cy="60" r="3" fill="#FF8A47"/></svg>
+      <div class="vc-top"><div><div class="vc-label">Véhicule actif</div><div class="vc-name">Peugeot 308 GT</div><div class="vc-vin">VF3LBHZTPK · 1.6 PureTech 225</div></div><div class="vc-badge">● OBD2 OK</div></div>
+      <div class="vc-stats"><div class="vc-stat"><div class="n">87<span class="u">°C</span></div><div class="l">Moteur</div></div><div class="vc-stat"><div class="n">14.2<span class="u">V</span></div><div class="l">Batterie</div></div><div class="vc-stat"><div class="n">62<span class="u">k</span></div><div class="l">Km</div></div></div>
+    </div>
+    <div class="gauge-grid">
+      <div class="gauge live"><div class="gauge-ring"><svg width="90" height="90"><circle cx="45" cy="45" r="38" fill="none" stroke="#EEF1F6" stroke-width="8"/><circle cx="45" cy="45" r="38" fill="none" stroke="#FF6B1A" stroke-width="8" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="155" id="ring-rpm"/></svg><div class="val"><b id="g-rpm">1850</b><s>RPM</s></div></div><div class="gauge-name">Régime moteur</div></div>
+      <div class="gauge live"><div class="gauge-ring"><svg width="90" height="90"><circle cx="45" cy="45" r="38" fill="none" stroke="#EEF1F6" stroke-width="8"/><circle cx="45" cy="45" r="38" fill="none" stroke="#1FB87A" stroke-width="8" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="180" id="ring-spd"/></svg><div class="val"><b id="g-spd">48</b><s>km/h</s></div></div><div class="gauge-name">Vitesse</div></div>
+    </div>
+    <div class="health"><div class="health-top"><h4>État de santé</h4><div class="health-score">88 / 100</div></div><div class="health-bar"><i></i></div><div class="health-items"><span class="hchip ok">✓ Moteur</span><span class="hchip ok">✓ Batterie</span><span class="hchip ok">✓ Émissions</span><span class="hchip warn">! Plaquettes</span></div></div>
+    <div class="sec-title"><h3>Modules</h3></div>
+    <div class="modules">
+      <div class="mod" onclick="go('live')"><div class="mod-ico i-live"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><h4>Données live</h4><p>RPM, vitesse, températures en direct</p><span class="arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg></span></div>
+      <div class="mod" onclick="go('dtc')"><div class="mod-ico i-dtc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div><h4>Codes défauts</h4><p>Lire & effacer les voyants moteur</p><span class="arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg></span></div>
+      <div class="mod" onclick="go('hidden')"><div class="mod-ico i-hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Options cachées</h4><p>Activer les fonctions d'usine</p><span class="arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg></span></div>
+      <div class="mod" onclick="go('perf')"><div class="mod-ico i-perf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h4>Performance</h4><p>0-100, puissance, couple estimés</p><span class="arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg></span></div>
+    </div>
+    <div class="sec-title" style="margin-top:13px"><h3>Avancé</h3></div>
+    <div class="mod" style="display:flex;align-items:center;gap:14px" onclick="go('tuning')"><div class="mod-ico i-tuning" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></div><div style="flex:1"><h4>Réglages avancés</h4><p>Paramètres moteur · Réservé aux experts</p></div><span class="arrow" style="position:static"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg></span></div>
+    <div class="demo-tag">● MODE DÉMONSTRATION — Données simulées</div>
+  </div>
+
+  <div class="view" id="view-live">
+    <div class="view-head"><div class="eyebrow">Temps réel</div><h2>Données live</h2><p>Lecture directe des calculateurs</p></div>
+    <div class="live-hero"><div class="lh-rpm"><div class="big" id="lh-rpm">1850<span class="u">rpm</span></div><div class="lbl">Régime moteur</div></div><div class="rpm-track"><i id="rpm-bar" style="width:26%"></i></div></div>
+    <div class="live-list">
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h2l2 6 4-12 2 6h4"/></svg></div><div class="meta"><div class="name">Vitesse véhicule</div><div class="sub">PID 010D</div></div><div class="read" id="lv-spd">48<span class="u"> km/h</span></div></div>
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z"/></svg></div><div class="meta"><div class="name">Température moteur</div><div class="sub">PID 0105</div></div><div class="read" id="lv-temp">87<span class="u"> °C</span></div></div>
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 2 7h10c0-2 2-4 2-7a7 7 0 0 0-7-7z"/><path d="M9 22h6"/></svg></div><div class="meta"><div class="name">Charge moteur</div><div class="sub">PID 0104</div></div><div class="read" id="lv-load">34<span class="u"> %</span></div></div>
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="meta"><div class="name">Pression admission</div><div class="sub">PID 010B</div></div><div class="read" id="lv-map">142<span class="u"> kPa</span></div></div>
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 2 2 4-5"/></svg></div><div class="meta"><div class="name">Débit d'air (MAF)</div><div class="sub">PID 0110</div></div><div class="read" id="lv-maf">12.4<span class="u"> g/s</span></div></div>
+      <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-8 4 16 2-8h4"/></svg></div><div class="meta"><div class="name">Papillon des gaz</div><div class="sub">PID 0111</div></div><div class="read" id="lv-thr">18<span class="u"> %</span></div></div>
+    </div>
+  </div>
+
+  <div class="view" id="view-dtc">
+    <div class="view-head"><div class="eyebrow">Diagnostic</div><h2>Codes défauts</h2><p>Anomalies détectées sur les calculateurs</p></div>
+    <div class="dtc-summary"><div class="dtc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div><div class="count">2</div><div class="lbl">codes défauts actifs · 1 en attente</div></div>
+    <div class="dtc-card"><div class="dtc-head"><div class="dtc-code">P0301</div><div class="dtc-sev high">Élevé</div></div><div class="dtc-desc">Raté d'allumage détecté — Cylindre 1</div><div class="dtc-sys">Système : Allumage / Injection</div></div>
+    <div class="dtc-card"><div class="dtc-head"><div class="dtc-code">P0420</div><div class="dtc-sev med">Moyen</div></div><div class="dtc-desc">Rendement catalyseur sous le seuil — Banc 1</div><div class="dtc-sys">Système : Émissions / Échappement</div></div>
+    <div class="dtc-card pending"><div class="dtc-head"><div class="dtc-code">P0133</div><div class="dtc-sev med">En attente</div></div><div class="dtc-desc">Réponse lente sonde O₂ — Banc 1 Capteur 1</div><div class="dtc-sys">Système : Gestion carburant</div></div>
+    <div class="dtc-actions"><button class="btn btn-ghost" onclick="toast('Diagnostic relancé')">Rescanner</button><button class="btn btn-primary" onclick="toast('Codes effacés ✓ Voyant éteint')">Effacer les codes</button></div>
+  </div>
+
+  <div class="view" id="view-hidden">
+    <div class="view-head"><div class="eyebrow">Codage</div><h2>Options cachées</h2><p>Activez les fonctions désactivées en usine</p></div>
+    <select class="brand-select" onchange="toast('Options chargées pour ' + this.value)"><option>Peugeot 308 — 1.6 PureTech</option><option>BMW Série 3 — F30</option><option>Volkswagen Golf 7 — TSI</option><option>Audi A3 — 8V</option><option>Renault Mégane 4</option></select>
+    <div class="opt-card"><div class="opt-meta"><h4>Affichage consommation live</h4><p>Active le menu conso instantanée au tableau de bord</p><span class="risk low">Risque faible</span></div><div class="toggle on" onclick="this.classList.toggle('on');toast('Option modifiée')"></div></div>
+    <div class="opt-card"><div class="opt-meta"><h4>Fermeture vitres à distance</h4><p>Fermeture des vitres via appui long sur la clé</p><span class="risk low">Risque faible</span></div><div class="toggle" onclick="this.classList.toggle('on');toast('Option modifiée')"></div></div>
+    <div class="opt-card"><div class="opt-meta"><h4>Feux de jour personnalisés</h4><p>Réglage intensité et signature lumineuse</p><span class="risk med">Risque moyen</span></div><div class="toggle" onclick="this.classList.toggle('on');toast('Option modifiée')"></div></div>
+    <div class="opt-card"><div class="opt-meta"><h4>Désactivation Start &amp; Stop mémoire</h4><p>Conserve le dernier état choisi au redémarrage</p><span class="risk med">Risque moyen</span></div><div class="toggle on" onclick="this.classList.toggle('on');toast('Option modifiée')"></div></div>
+    <div class="opt-card"><div class="opt-meta"><h4>Vitesse en chiffres (digital)</h4><p>Affiche la vitesse numérique sur l'écran central</p><span class="risk low">Risque faible</span></div><div class="toggle" onclick="this.classList.toggle('on');toast('Option modifiée')"></div></div>
+  </div>
+
+  <div class="view" id="view-perf">
+    <div class="view-head"><div class="eyebrow">Mesures</div><h2>Performance</h2><p>Puissance & accélérations en temps réel</p></div>
+    <div class="perf-hero"><div class="perf-big"><div class="v">218<span class="u"> ch</span></div><div class="l">Puissance estimée</div></div><div class="perf-timer"><div class="v">6.8<span class="u">s</span></div><div class="l">0 → 100 km/h</div></div></div>
+    <div class="graph-card"><h4>Courbe de puissance</h4><div class="sub">Dernier run · RPM vs CH</div><svg class="spark" viewBox="0 0 300 90" preserveAspectRatio="none"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6B1A" stop-opacity=".35"/><stop offset="100%" stop-color="#FF6B1A" stop-opacity="0"/></linearGradient></defs><path d="M0 80 C40 78 60 60 90 45 C120 30 150 18 190 14 C220 11 260 20 300 35 L300 90 L0 90 Z" fill="url(#grad1)"/><path d="M0 80 C40 78 60 60 90 45 C120 30 150 18 190 14 C220 11 260 20 300 35" fill="none" stroke="#FF6B1A" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+    <div class="graph-card"><h4>Pression turbo</h4><div class="sub">Réelle vs cible · bar</div><svg class="spark" viewBox="0 0 300 90" preserveAspectRatio="none"><defs><linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1FB87A" stop-opacity=".3"/><stop offset="100%" stop-color="#1FB87A" stop-opacity="0"/></linearGradient></defs><path d="M0 70 C50 68 80 40 120 35 C160 30 180 50 220 48 C250 47 280 30 300 28 L300 90 L0 90 Z" fill="url(#grad2)"/><path d="M0 70 C50 68 80 40 120 35 C160 30 180 50 220 48 C250 47 280 30 300 28" fill="none" stroke="#1FB87A" stroke-width="2.5" stroke-linecap="round"/><path d="M0 64 C50 62 80 38 120 33 C160 28 180 44 220 43 C250 42 280 28 300 26" fill="none" stroke="#9AA7BE" stroke-width="1.5" stroke-dasharray="4 4"/></svg></div>
+    <button class="start-btn" onclick="toast('Mesure 0-100 prête — accélérez !')">▶ Lancer une mesure 0-100</button>
+  </div>
+
+  <div class="view" id="view-tuning">
+    <div class="view-head"><div class="eyebrow">Expert</div><h2>Réglages avancés</h2><p>Modification des paramètres moteur</p></div>
+    <div class="warn-banner"><div class="wico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div><div><h4>Zone à risque — Responsabilité utilisateur</h4><p>Toute modification engage votre seule responsabilité et annule la garantie constructeur. Comme déverrouiller une console, vous acceptez les risques.</p></div></div>
+    <div class="tune-card"><div class="tune-head"><h4>Pression turbo cible</h4><div class="tune-val">+0.15 bar</div></div><p>Augmente la pression de suralimentation demandée à l'ECU</p><div class="slider-wrap"><input type="range" class="slider" min="0" max="100" value="55" oninput="this.style.background='linear-gradient(90deg,#FF6B1A '+this.value+'%,#EEF1F6 '+this.value+'%)'"><div class="slider-scale"><span>Stock</span><span>+0.3 bar</span></div></div></div>
+    <div class="tune-card"><div class="tune-head"><h4>Pression carburant</h4><div class="tune-val">+4 %</div></div><p>Ajuste la pression du rail d'injection (richesse mélange)</p><div class="slider-wrap"><input type="range" class="slider" min="0" max="100" value="40" oninput="this.style.background='linear-gradient(90deg,#FF6B1A '+this.value+'%,#EEF1F6 '+this.value+'%)'"><div class="slider-scale"><span>Stock</span><span>+10 %</span></div></div></div>
+    <div class="tune-card"><div class="tune-head"><h4>Limiteur de régime</h4><div class="tune-val">6 800 rpm</div></div><p>Relève le rupteur — nécessite moteur en bon état</p><div class="slider-wrap"><input type="range" class="slider" min="0" max="100" value="30" oninput="this.style.background='linear-gradient(90deg,#FF6B1A '+this.value+'%,#EEF1F6 '+this.value+'%)'"><div class="slider-scale"><span>6 500</span><span>7 200</span></div></div></div>
+    <div class="tune-card"><div class="tune-head"><h4>Seuil débitmètre (MAF)</h4><div class="tune-val">Stock</div></div><p>Calibration du volume d'air admis</p><div class="locked"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Déverrouillage requis — profil moteur à valider</div></div>
+    <div class="dtc-actions"><button class="btn btn-ghost" onclick="toast('Valeurs réinitialisées')">Réinitialiser</button><button class="btn btn-primary" onclick="toast('⚠ Confirmation requise avant écriture ECU')">Écrire dans l'ECU</button></div>
+  </div>
+
+  <div class="botnav">
+    <button class="nav-btn active" id="nav-dash" onclick="go('dash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Accueil</span></button>
+    <button class="nav-btn" id="nav-live" onclick="go('live')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-8 4 16 2-8h4"/></svg><span>Live</span></button>
+    <div class="nav-scan" onclick="go('dtc')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg></div>
+    <button class="nav-btn" id="nav-perf" onclick="go('perf')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg><span>Perf</span></button>
+    <button class="nav-btn" id="nav-hidden" onclick="go('hidden')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Réglages</span></button>
+  </div>
+</div>
+
+<div class="install-banner" id="installBanner">
+  <div class="ib-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></div>
+  <div class="ib-txt"><b>Installer Home Mechanical</b><span>Accès direct depuis l'écran d'accueil</span></div>
+  <button id="installBtn">Installer</button>
+  <button class="ib-close" onclick="document.getElementById('installBanner').classList.remove('show')">×</button>
+</div>
+
+<script>
+function go(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+  const nav=document.getElementById('nav-'+v);
+  if(nav) nav.classList.add('active');
+  else if(v==='tuning') document.getElementById('nav-hidden').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+let toastTimer;
+function toast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:170px;left:50%;transform:translateX(-50%) translateY(20px);background:#16233D;color:#fff;padding:13px 22px;border-radius:30px;font-size:13px;font-weight:600;z-index:200;box-shadow:0 10px 30px rgba(22,35,61,.3);opacity:0;transition:.3s;max-width:90%;text-align:center;font-family:Inter';document.body.appendChild(t);}
+  t.textContent=msg;
+  requestAnimationFrame(()=>{t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)'});
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)'},2200);
+}
+function rnd(min,max){return Math.random()*(max-min)+min}
+let rpm=1850, spd=48;
+setInterval(()=>{
+  rpm=Math.max(800,Math.min(4500,rpm+rnd(-180,200)));
+  spd=Math.max(0,Math.min(130,spd+rnd(-4,4)));
+  const temp=Math.round(rnd(86,90)),load=Math.round(rnd(28,46)),map=Math.round(rnd(110,165)),maf=rnd(9,18).toFixed(1),thr=Math.round(rnd(12,40));
+  const R=Math.round(rpm),S=Math.round(spd);
+  setTxt('g-rpm',R);setTxt('g-spd',S);
+  const ro=document.getElementById('ring-rpm');if(ro)ro.style.strokeDashoffset=239-(R/6000*239);
+  const so=document.getElementById('ring-spd');if(so)so.style.strokeDashoffset=239-(S/180*239);
+  setHtml('lh-rpm',R+'<span class="u">rpm</span>');
+  const bar=document.getElementById('rpm-bar');if(bar)bar.style.width=(R/6500*100)+'%';
+  setHtml('lv-spd',S+'<span class="u"> km/h</span>');setHtml('lv-temp',temp+'<span class="u"> °C</span>');
+  setHtml('lv-load',load+'<span class="u"> %</span>');setHtml('lv-map',map+'<span class="u"> kPa</span>');
+  setHtml('lv-maf',maf+'<span class="u"> g/s</span>');setHtml('lv-thr',thr+'<span class="u"> %</span>');
+},900);
+function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v}
+function setHtml(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v}
+
+/* PWA — Service Worker + bouton installer */
+let deferredPrompt;
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();deferredPrompt=e;
+  document.getElementById('installBanner').classList.add('show');
+});
+document.getElementById('installBtn').addEventListener('click',async()=>{
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt=null;
+  document.getElementById('installBanner').classList.remove('show');
+});
+window.addEventListener('appinstalled',()=>{document.getElementById('installBanner').classList.remove('show')});
+</script>
+</body>
+</html>
