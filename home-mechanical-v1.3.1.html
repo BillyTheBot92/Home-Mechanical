@@ -687,17 +687,21 @@ async function connectBLE(){
   setConnUI('connecting','Recherche...','Popup Bluetooth ouverte');
   bleLog('Ouverture du sélecteur Bluetooth...');
   try{
-    const filters=BLE_NAMES.map(n=>({namePrefix:n}));
     bleDevice=await navigator.bluetooth.requestDevice({
-      filters,
+      acceptAllDevices: true,
       optionalServices:[
-        SERVICE_UUID,
-        0xFFE1,
+        0xFFE0, 0xFFE1, 0xFFF0, 0xFFF1,
+        0x18F0, 0x18F1, 0x2AF0, 0x2AF1,
+        0xABF0, 0xABF1, 0xBEF0,
+        'e7810a71-73ae-499d-8c15-faa9aef0c3f2',
+        'be781000-5abe-4b31-9deb-ceadea2b97d0',
+        '00001101-0000-1000-8000-00805f9b34fb',
         '0000ffe0-0000-1000-8000-00805f9b34fb',
         '0000ffe1-0000-1000-8000-00805f9b34fb',
-        '00001101-0000-1000-8000-00805f9b34fb',
-        'e7810a71-73ae-499d-8c15-faa9aef0c3f2',
-        'fff0','fff1','18f0','2af0'
+        '0000fff0-0000-1000-8000-00805f9b34fb',
+        '0000fff1-0000-1000-8000-00805f9b34fb',
+        '000018f0-0000-1000-8000-00805f9b34fb',
+        '000018f1-0000-1000-8000-00805f9b34fb'
       ]
     });
     bleLog(`✓ Sélectionné : ${bleDevice.name}`);
