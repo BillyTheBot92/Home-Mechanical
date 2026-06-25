@@ -2,7 +2,7 @@
   "name": "Home Mechanical",
   "short_name": "Home Mechanical",
   "description": "Diagnostic automobile OBD2 professionnel",
-  "start_url": "home-mechanical-v1.3.2.html",
+  "start_url": "home-mechanical.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
