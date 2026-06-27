@@ -330,6 +330,67 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .start-btn{width:100%;padding:14px;border:none;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--orange),var(--orange-soft));color:#fff;font-family:'Sora';font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 7px 22px var(--orange-glow);transition:.2s}
 .start-btn:active{transform:scale(.98)}
 .ver-tag{text-align:center;font-size:10px;color:var(--text-faint);padding:16px 0 4px;font-family:'JetBrains Mono';letter-spacing:.5px}
+
+/* DTC MODAL */
+.dtc-modal-bg{position:fixed;inset:0;z-index:400;background:rgba(10,17,32,.75);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center}
+.dtc-modal-bg.show{display:flex;animation:fade .3s ease}
+.dtc-modal{background:var(--card);border-radius:24px 24px 0 0;padding:28px 20px 40px;width:100%;max-width:440px;box-shadow:var(--shadow-lg)}
+.dtc-modal-handle{width:40px;height:4px;border-radius:4px;background:var(--card-line);margin:0 auto 20px}
+.dtc-modal-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.dtc-modal-code{font-family:'JetBrains Mono';font-size:22px;font-weight:800;color:var(--navy)}
+.dtc-modal-sev{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;background:#FEF3DC;color:#B97D0A}
+.dtc-modal h3{font-family:'Sora';font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.dtc-modal-sys{font-size:12px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px}
+.dtc-modal-detail{font-size:14px;color:var(--text-mut);line-height:1.7;margin-bottom:20px;background:var(--bg);border-radius:var(--r-sm);padding:14px}
+
+/* ===== LIVE DATA CATÉGORISÉ ===== */
+.live-rpm-hero{
+  background:linear-gradient(135deg,var(--navy),var(--navy-soft));
+  border-radius:var(--r);padding:20px;margin-bottom:18px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.live-rpm-hero::after{content:"";position:absolute;bottom:-30%;left:-10%;width:180px;height:180px;background:radial-gradient(circle,var(--orange-glow),transparent 65%)}
+.rpm-display{display:flex;align-items:flex-end;justify-content:center;gap:6px;position:relative;z-index:2;margin-bottom:6px}
+.rpm-num{font-family:'Sora';font-size:64px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px}
+.rpm-unit{font-family:'Sora';font-size:18px;color:var(--orange-soft);font-weight:700;margin-bottom:10px}
+.rpm-label{text-align:center;font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;position:relative;z-index:2}
+.rpm-bar-wrap{height:8px;border-radius:8px;background:rgba(255,255,255,.1);margin-top:14px;overflow:hidden;position:relative;z-index:2}
+.rpm-bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#1FB87A,var(--orange),#E8444C);transition:width .4s;box-shadow:0 0 10px var(--orange-glow)}
+.rpm-ticks{display:flex;justify-content:space-between;margin-top:5px;position:relative;z-index:2}
+.rpm-ticks span{font-family:'JetBrains Mono';font-size:9px;color:rgba(255,255,255,.3)}
+
+/* Catégories live */
+.live-cat{margin-bottom:20px}
+.live-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:0 2px}
+.live-cat-ico{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.live-cat-ico svg{width:18px;height:18px}
+.live-cat-title{font-family:'Sora';font-size:13px;font-weight:800;letter-spacing:.3px}
+.live-cat-count{font-size:10px;color:var(--text-faint);font-weight:600;margin-left:auto;font-family:'JetBrains Mono'}
+
+/* Cards de données */
+.live-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.live-card{background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:14px 12px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.live-card.wide{grid-column:span 2}
+.live-card-label{font-size:10px;color:var(--text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.live-card-val{font-family:'Sora';font-size:26px;font-weight:800;color:var(--text);line-height:1}
+.live-card-val .u{font-size:12px;color:var(--text-mut);font-weight:600}
+.live-card-bar{height:3px;border-radius:3px;background:var(--bg);margin-top:10px;overflow:hidden}
+.live-card-bar i{display:block;height:100%;border-radius:3px;transition:width .4s}
+.live-card-pid{font-family:'JetBrains Mono';font-size:9px;color:var(--text-faint);margin-top:4px}
+.live-card-live::before{content:"";position:absolute;top:10px;right:10px;width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+/* Carte km spéciale */
+.km-card{background:linear-gradient(135deg,#0A1420,#16233D);border-radius:var(--r);padding:18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-lg);border:1px solid rgba(255,107,26,.15)}
+.km-ico{width:48px;height:48px;border-radius:13px;background:rgba(255,107,26,.15);display:grid;place-items:center;flex-shrink:0}
+.km-ico svg{width:26px;height:26px;color:var(--orange)}
+.km-data{flex:1}
+.km-label{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;font-weight:600}
+.km-val{font-family:'Sora';font-size:28px;font-weight:800;color:#fff}
+.km-val .u{font-size:13px;color:var(--orange-soft);font-weight:600}
+.km-source{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px;font-family:'JetBrains Mono'}
+/* Badge free/premium */
+.cat-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.3px}
+.cat-badge.free{background:#E5F7F0;color:#138A5A}
+.cat-badge.pro{background:linear-gradient(135deg,var(--purple),#B47AFF);color:#fff}
 </style>
 </head>
 <body>
@@ -441,24 +502,169 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
           <div class="health-items"><span class="hchip ok">✓ Connecté</span></div>
         </div>
       </div>
-      <div class="ver-tag">Home Mechanical v1.3.0</div>
+      <div class="ver-tag">Home Mechanical v1.5.0</div>
     </div>
 
     <!-- ============ LIVE ============ -->
     <div class="page" id="page-live">
       <div class="view-head"><div class="eyebrow">Temps réel</div><h2>Données live</h2><p>Lecture directe des calculateurs</p></div>
-      <div class="live-hero"><div class="lh-rpm"><div class="big" id="lh-rpm">0<span class="u">rpm</span></div><div class="lbl">Régime moteur</div></div><div class="rpm-track"><i id="rpm-bar" style="width:0%"></i></div></div>
-      <div class="live-list">
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h2l2 6 4-12 2 6h4"/></svg></div><div class="meta"><div class="name">Vitesse</div><div class="sub">PID 010D</div></div><div class="read" id="lv-spd">—<span class="u"> km/h</span></div></div>
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z"/></svg></div><div class="meta"><div class="name">Température moteur</div><div class="sub">PID 0105</div></div><div class="read" id="lv-temp">—<span class="u"> °C</span></div></div>
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 2 7h10c0-2 2-4 2-7a7 7 0 0 0-7-7z"/><path d="M9 22h6"/></svg></div><div class="meta"><div class="name">Charge moteur</div><div class="sub">PID 0104</div></div><div class="read" id="lv-load">—<span class="u"> %</span></div></div>
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="meta"><div class="name">Pression admission</div><div class="sub">PID 010B</div></div><div class="read" id="lv-map">—<span class="u"> kPa</span></div></div>
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 2 2 4-5"/></svg></div><div class="meta"><div class="name">Débit air (MAF)</div><div class="sub">PID 0110</div></div><div class="read" id="lv-maf">—<span class="u"> g/s</span></div></div>
-        <div class="live-row"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-8 4 16 2-8h4"/></svg></div><div class="meta"><div class="name">Papillon des gaz</div><div class="sub">PID 0111</div></div><div class="read" id="lv-thr">—<span class="u"> %</span></div></div>
+
+      <!-- Jauge RPM héro -->
+      <div class="live-rpm-hero">
+        <div class="rpm-display">
+          <span class="rpm-num" id="lh-rpm">0</span>
+          <span class="rpm-unit">rpm</span>
+        </div>
+        <div class="rpm-label">Régime moteur</div>
+        <div class="rpm-bar-wrap"><div class="rpm-bar-fill" id="rpm-bar" style="width:0%"></div></div>
+        <div class="rpm-ticks"><span>0</span><span>2000</span><span>4000</span><span>6000</span><span>8000</span></div>
       </div>
+
+      <!-- Kilométrage -->
+      <div class="km-card" id="kmCard">
+        <div class="km-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3"/></svg></div>
+        <div class="km-data">
+          <div class="km-label">Kilométrage total</div>
+          <div class="km-val" id="kmVal">—<span class="u"> km</span></div>
+          <div class="km-source" id="kmSource">Lecture en attente...</div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIE : MOTEUR -->
+      <div class="live-cat">
+        <div class="live-cat-header">
+          <div class="live-cat-ico" style="background:rgba(255,107,26,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 2 7h10c0-2 2-4 2-7a7 7 0 0 0-7-7z"/><path d="M9 22h6"/></svg></div>
+          <span class="live-cat-title" style="color:var(--orange)">Moteur</span>
+          <span class="cat-badge free">Gratuit</span>
+          <span class="live-cat-count">5 capteurs</span>
+        </div>
+        <div class="live-cards">
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Vitesse</div>
+            <div class="live-card-val" id="lv-spd">0<span class="u"> km/h</span></div>
+            <div class="live-card-bar"><i id="bar-spd" style="width:0%;background:var(--green)"></i></div>
+            <div class="live-card-pid">PID 010D</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Température moteur</div>
+            <div class="live-card-val" id="lv-temp">—<span class="u"> °C</span></div>
+            <div class="live-card-bar"><i id="bar-temp" style="width:0%;background:var(--amber)"></i></div>
+            <div class="live-card-pid">PID 0105</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Charge moteur</div>
+            <div class="live-card-val" id="lv-load">—<span class="u"> %</span></div>
+            <div class="live-card-bar"><i id="bar-load" style="width:0%;background:var(--blue)"></i></div>
+            <div class="live-card-pid">PID 0104</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Tension batterie</div>
+            <div class="live-card-val" id="lv-volt">—<span class="u"> V</span></div>
+            <div class="live-card-bar"><i id="bar-volt" style="width:0%;background:var(--green)"></i></div>
+            <div class="live-card-pid">PID 0142</div>
+          </div>
+          <div class="live-card wide live-card-live">
+            <div class="live-card-label">Régime moteur</div>
+            <div class="live-card-val" id="lv-rpm">0<span class="u"> RPM</span></div>
+            <div class="live-card-bar"><i id="bar-rpm" style="width:0%;background:var(--orange)"></i></div>
+            <div class="live-card-pid">PID 010C</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIE : ADMISSION D'AIR -->
+      <div class="live-cat">
+        <div class="live-cat-header">
+          <div class="live-cat-ico" style="background:rgba(59,111,232,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B6FE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 10 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div>
+          <span class="live-cat-title" style="color:var(--blue)">Admission d'air</span>
+          <span class="cat-badge free">Gratuit</span>
+          <span class="live-cat-count">3 capteurs</span>
+        </div>
+        <div class="live-cards">
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Débit air (MAF)</div>
+            <div class="live-card-val" id="lv-maf">—<span class="u"> g/s</span></div>
+            <div class="live-card-bar"><i id="bar-maf" style="width:0%;background:var(--blue)"></i></div>
+            <div class="live-card-pid">PID 0110</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Pression admission</div>
+            <div class="live-card-val" id="lv-map">—<span class="u"> kPa</span></div>
+            <div class="live-card-bar"><i id="bar-map" style="width:0%;background:var(--blue)"></i></div>
+            <div class="live-card-pid">PID 010B</div>
+          </div>
+          <div class="live-card wide live-card-live">
+            <div class="live-card-label">Ouverture papillon</div>
+            <div class="live-card-val" id="lv-thr">—<span class="u"> %</span></div>
+            <div class="live-card-bar"><i id="bar-thr" style="width:0%;background:var(--blue)"></i></div>
+            <div class="live-card-pid">PID 0111</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIE : SURALIMENTATION (TURBO) -->
+      <div class="live-cat">
+        <div class="live-cat-header">
+          <div class="live-cat-ico" style="background:rgba(245,166,35,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+          <span class="live-cat-title" style="color:var(--amber)">Suralimentation</span>
+          <span class="cat-badge pro">Premium</span>
+          <span class="live-cat-count">2 capteurs</span>
+        </div>
+        <div class="live-cards">
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Boost réel</div>
+            <div class="live-card-val" id="lv-boost">—<span class="u"> bar</span></div>
+            <div class="live-card-bar"><i id="bar-boost" style="width:0%;background:var(--amber)"></i></div>
+            <div class="live-card-pid">Calculé MAP</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Temp air admission</div>
+            <div class="live-card-val" id="lv-iat">—<span class="u"> °C</span></div>
+            <div class="live-card-bar"><i id="bar-iat" style="width:0%;background:var(--amber)"></i></div>
+            <div class="live-card-pid">PID 010F</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIE : CARBURANT / EGR / FAP -->
+      <div class="live-cat">
+        <div class="live-cat-header">
+          <div class="live-cat-ico" style="background:rgba(139,69,214,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#8B45D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg></div>
+          <span class="live-cat-title" style="color:var(--purple)">Carburant & Émissions</span>
+          <span class="cat-badge pro">Premium</span>
+          <span class="live-cat-count">4 capteurs</span>
+        </div>
+        <div class="live-cards">
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Trim carb. court</div>
+            <div class="live-card-val" id="lv-stft">—<span class="u"> %</span></div>
+            <div class="live-card-bar"><i id="bar-stft" style="width:50%;background:var(--purple)"></i></div>
+            <div class="live-card-pid">PID 0106</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Trim carb. long</div>
+            <div class="live-card-val" id="lv-ltft">—<span class="u"> %</span></div>
+            <div class="live-card-bar"><i id="bar-ltft" style="width:50%;background:var(--purple)"></i></div>
+            <div class="live-card-pid">PID 0107</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Sonde O2 amont</div>
+            <div class="live-card-val" id="lv-o2">—<span class="u"> V</span></div>
+            <div class="live-card-bar"><i id="bar-o2" style="width:0%;background:var(--purple)"></i></div>
+            <div class="live-card-pid">PID 0114</div>
+          </div>
+          <div class="live-card live-card-live">
+            <div class="live-card-label">Taux charge FAP</div>
+            <div class="live-card-val" id="lv-dpf">—<span class="u"> %</span></div>
+            <div class="live-card-bar"><i id="bar-dpf" style="width:0%;background:var(--red)"></i></div>
+            <div class="live-card-pid">VAG 2201</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- ============ DTC ============ -->
+<!-- ============ DTC ============ -->
     <div class="page" id="page-dtc">
       <div class="view-head"><div class="eyebrow">Diagnostic</div><h2>Codes défauts</h2><p>Anomalies détectées sur les calculateurs</p></div>
       <div class="dtc-summary" id="dtcSummary">
@@ -577,7 +783,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         </div>
         <div class="settings-row">
           <div class="s-ico" style="background:rgba(255,107,26,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
-          <div class="s-meta"><b>Version</b><span>Home Mechanical v1.3.0</span></div>
+          <div class="s-meta"><b>Version</b><span>Home Mechanical v1.5.0</span></div>
           <div class="s-badge">Dernière</div>
         </div>
       </div>
@@ -820,52 +1026,103 @@ async function readVIN(){
 }
 
 function parseVIN(raw){
-  // Nettoyer la réponse
-  let clean = raw.replace(/[\r\n>]/g,' ').replace(/\s+/g,' ').trim().toUpperCase();
-  // Retirer les headers CAN si présents (ex: "7E8 10 14 49 02 01 ...")
-  // et assembler tous les bytes hex en un seul flux
-  let allBytes = [];
-  // Extraire tous les groupes hex valides
-  const parts = clean.split(' ');
-  for(const p of parts){
-    if(/^[0-9A-F]{2}$/.test(p)){
-      allBytes.push(parseInt(p, 16));
+  // Format ISO-TP multiframe ELM327 :
+  // "0:490201544D42 1:41453733543542 2:39303536323330"
+  // ou format standard : "49 02 01 57 42 41..."
+  let clean = raw.replace(/[\r\n>]/g,' ').toUpperCase().trim();
+  bleLog('VIN parse: '+clean.substring(0,100));
+
+  // Méthode 1 : format multiframe numéroté "0:HEXHEX 1:HEXHEX..."
+  if(/\d:[0-9A-F]{6,}/.test(clean)){
+    // Trier les frames par numéro et concaténer
+    const frames = {};
+    const re = /(\d):([0-9A-F]+)/g;
+    let m;
+    while((m=re.exec(clean))!==null){
+      frames[parseInt(m[1])] = m[2];
     }
+    let allHex = '';
+    const keys = Object.keys(frames).map(Number).sort();
+    for(const k of keys) allHex += frames[k];
+    bleLog('Multiframe hex: '+allHex.substring(0,60));
+    return extractVINfromHex(allHex);
   }
-  // Chercher la séquence 49 02 (réponse mode 09 PID 02)
-  let startIdx = -1;
-  for(let i=0; i<allBytes.length-2; i++){
-    if(allBytes[i]===0x49 && allBytes[i+1]===0x02){
-      startIdx = i + 2;
-      break;
-    }
+
+  // Méthode 2 : format standard avec espaces "49 02 01 XX XX..."
+  const noSpace = clean.replace(/\s/g,'');
+  return extractVINfromHex(noSpace);
+}
+
+function extractVINfromHex(hex){
+  // Chercher 4902 dans le flux hex
+  const idx = hex.indexOf('4902');
+  if(idx === -1){
+    bleLog('4902 non trouvé dans: '+hex.substring(0,40));
+    return null;
   }
-  if(startIdx === -1) return null;
-  // Sauter l'octet de séquence (01, 02...) si présent
-  let dataStart = startIdx;
-  if(allBytes[dataStart] >= 0x01 && allBytes[dataStart] <= 0x05){
-    dataStart++;
-  }
-  // Lire 17 caractères ASCII du VIN
+  // Bytes après "4902"
+  let data = hex.substring(idx + 4);
+  // Sauter l'octet de séquence (01..05) si présent
+  if(/^0[1-5]/.test(data)) data = data.substring(2);
+  // Convertir en ASCII
   let vin = '';
-  for(let i=dataStart; i<allBytes.length && vin.length<17; i++){
-    const c = allBytes[i];
-    if(c >= 0x20 && c <= 0x7E){ // ASCII imprimable
-      vin += String.fromCharCode(c);
-    }
+  for(let i=0; i<data.length-1 && vin.length<17; i+=2){
+    const byte = parseInt(data.substr(i,2),16);
+    if(byte >= 0x20 && byte <= 0x7E) vin += String.fromCharCode(byte);
+    else if(vin.length > 0) break; // Stop sur byte non-ASCII après début du VIN
   }
+  bleLog('VIN extrait: '+vin);
   return vin.length >= 11 ? vin : null;
 }
 function displayVIN(vin){
   document.getElementById('vinCard').classList.add('show');
   document.getElementById('vinDisplay').textContent=vin;
   document.getElementById('vc-vin').textContent=vin;
-  const pays={'VF':'France','WB':'Allemagne','WA':'Allemagne','ZA':'Italie','SA':'Royaume-Uni','JN':'Japon','1H':'États-Unis','1G':'États-Unis','KN':'Corée','YV':'Suède'};
-  const annees={'A':2010,'B':2011,'C':2012,'D':2013,'E':2014,'F':2015,'G':2016,'H':2017,'J':2018,'K':2019,'L':2020,'M':2021,'N':2022,'P':2023,'R':2024,'S':2025,'T':2026};
-  const pays_str=pays[vin.substring(0,2)]||'Origine inconnue';
-  const annee_str=annees[vin[9]]?annees[vin[9]]+' · ':'';
-  document.getElementById('vinDecoded').textContent=`${annee_str}${pays_str}`;
-  document.getElementById('vc-model').textContent=`${annee_str}${pays_str}`;
+
+  // Décodage WMI (3 premiers caractères)
+  const WMI = vin.substring(0,3);
+  const WMI2 = vin.substring(0,2);
+
+  // Base WMI → Marque
+  const wmiMap = {
+    'TMB':'Skoda','TM0':'Skoda','TMA':'Skoda',
+    'VF1':'Renault','VF3':'Peugeot','VF7':'Citroën','VF9':'Citroën',
+    'WBA':'BMW','WBS':'BMW','WBY':'BMW',
+    'WDD':'Mercedes','WDC':'Mercedes','WDB':'Mercedes',
+    'WAU':'Audi','WA1':'Audi','WVW':'Volkswagen','WV2':'Volkswagen',
+    'VSS':'Seat','VSK':'Seat','VNK':'Toyota Europe',
+    'SAL':'Land Rover','SAJ':'Jaguar','SAR':'Rover',
+    'JN1':'Nissan','JHM':'Honda','JT2':'Toyota','JT3':'Toyota',
+    'ZFF':'Ferrari','ZFA':'Fiat','ZAR':'Alfa Romeo','ZLA':'Lancia',
+    '1G1':'Chevrolet','1GC':'Chevrolet','1HG':'Honda','1FT':'Ford',
+    'KNM':'Renault Korea','KNA':'Kia','KMH':'Hyundai','5YJ':'Tesla'
+  };
+
+  // Années (caractère 10 du VIN)
+  const yearMap = {
+    'A':1980,'B':1981,'C':1982,'D':1983,'E':1984,'F':1985,'G':1986,
+    'H':1987,'J':1988,'K':1989,'L':1990,'M':1991,'N':1992,'P':1993,
+    'R':1994,'S':1995,'T':1996,'V':1997,'W':1998,'X':1999,'Y':2000,
+    '1':2001,'2':2002,'3':2003,'4':2004,'5':2005,'6':2006,'7':2007,
+    '8':2008,'9':2009,'A':2010,'B':2011,'C':2012,'D':2013,'E':2014,
+    'F':2015,'G':2016,'H':2017,'J':2018,'K':2019,'L':2020,'M':2021,
+    'N':2022,'P':2023,'R':2024,'S':2025,'T':2026,'V':2027,'W':2028
+  };
+
+  const marque = wmiMap[WMI] || wmiMap[WMI2] || 'Marque inconnue';
+  const annee = yearMap[vin[9]] || '?';
+  const pays2 = {'VF':'France','WB':'Allemagne','WA':'Allemagne','ZA':'Italie',
+    'SA':'Royaume-Uni','JN':'Japon','1H':'États-Unis','1G':'États-Unis',
+    'KN':'Corée','YV':'Suède','TM':'République Tchèque'};
+  const paysStr = pays2[WMI2] || 'Origine inconnue';
+
+  const decoded = `${marque} · ${annee} · ${paysStr}`;
+  document.getElementById('vinDecoded').textContent=decoded;
+  document.getElementById('vc-model').textContent=`${marque} ${annee}`;
+
+  // Sauvegarder pour utilisation dans l'app
+  window._vehicleInfo = {vin, marque, annee, pays:paysStr};
+  bleLog(`✓ Véhicule : ${marque} ${annee} (${paysStr})`);
 }
 
 /* POLLING */
@@ -941,45 +1198,259 @@ function parseOBD(pid,raw){
 }
 async function pollLoop(){
   if(!bleChar)return;
-  const rpm=await pollPID('010C'),spd=await pollPID('010D'),temp=await pollPID('0105'),load=await pollPID('0104'),map=await pollPID('010B'),maf=await pollPID('0110'),thr=await pollPID('0111'),volt=await pollPID('0142');
-  updateUI(rpm,spd,temp,load,map,maf,thr,volt);
-  if(bleChar)pollTimer=setTimeout(pollLoop,800);
+  // PIDs standards (tous gratuits)
+  const rpm  = await pollPID('010C');
+  const spd  = await pollPID('010D');
+  const temp = await pollPID('0105');
+  const load = await pollPID('0104');
+  const map  = await pollPID('010B');
+  const maf  = await pollPID('0110');
+  const thr  = await pollPID('0111');
+  const volt = await pollPID('0142');
+  const iat  = await pollPID('010F'); // Temp air admission
+  const stft = await pollPID('0106'); // Short term fuel trim
+  const ltft = await pollPID('0107'); // Long term fuel trim
+  const o2   = await pollPID('0114'); // Sonde O2
+
+  updateUI(rpm,spd,temp,load,map,maf,thr,volt,iat,stft,ltft,o2);
+  if(bleChar)pollTimer=setTimeout(pollLoop,1200);
 }
-function startPolling(){if(pollTimer)clearTimeout(pollTimer);pollLoop();}
+function startPolling(){if(pollTimer)clearTimeout(pollTimer);pollLoop();readOdometer();}
+
+/* ============ KILOMÉTRAGE UDS ============ */
+async function readOdometer(){
+  try{
+    setTxt('kmSource','Lecture kilométrage...');
+    // Méthode 1 : PID OBD2 standard 01A6 (post-2019)
+    let km = await tryOdometerPID();
+    if(km){ displayOdometer(km,'OBD2 standard PID A6'); return; }
+
+    // Méthode 2 : UDS VAG instrument cluster (adresse 7C0)
+    bleLog('Tentative kilométrage VAG UDS...');
+    await sendCommand('ATSH 7C0\r', 500);
+    await sendCommand('ATFCSH 7C0\r', 500);
+    await sendCommand('ATFCSD 30 00 00\r', 500);
+    // Essai DID 2206 (kilométrage VAG)
+    const r1 = await sendCommand('22 06 06\r', 3000);
+    bleLog('KM UDS 2206: '+r1.substring(0,40));
+    km = parseOdoResponse(r1);
+    if(km){ displayOdometer(km,'VAG UDS 7C0·2206'); return; }
+
+    // Essai DID 220001
+    const r2 = await sendCommand('22 00 01\r', 3000);
+    bleLog('KM UDS 220001: '+r2.substring(0,40));
+    km = parseOdoResponse(r2);
+    if(km){ displayOdometer(km,'VAG UDS 7C0·0001'); return; }
+
+    // Essai DID 2201A8
+    const r3 = await sendCommand('22 01 A8\r', 3000);
+    bleLog('KM UDS 22 01A8: '+r3.substring(0,40));
+    km = parseOdoResponse(r3);
+    if(km){ displayOdometer(km,'VAG UDS 7C0·01A8'); return; }
+
+    // Remettre le header par défaut
+    await sendCommand('ATSH 7DF\r', 500);
+    setTxt('kmSource','Non disponible sur ce véhicule');
+
+  }catch(e){
+    bleLog('Odo err: '+e.message);
+    setTxt('kmSource','Erreur de lecture');
+    // Remettre header par défaut
+    try{ await sendCommand('ATSH 7DF\r', 500); }catch(e2){}
+  }
+}
+
+async function tryOdometerPID(){
+  try{
+    const r = await sendCommand('01A6\r', 2000);
+    if(r.includes('TIMEOUT')||r.includes('NO DATA')||r.includes('?')) return null;
+    const noSp = r.replace(/\s/g,'').toUpperCase();
+    const idx = noSp.indexOf('41A6');
+    if(idx===-1) return null;
+    const data = noSp.substring(idx+4);
+    if(data.length<8) return null;
+    const km = parseInt(data.substring(0,8),16);
+    return (km>0 && km<2000000) ? km : null;
+  }catch(e){ return null; }
+}
+
+function parseOdoResponse(raw){
+  if(!raw || raw.includes('TIMEOUT')||raw.includes('NO DATA')||raw.includes('?')) return null;
+  const noSp = raw.replace(/[\r\n>\s]/g,'').toUpperCase();
+  // Chercher réponse positive UDS : 62 XX XX [bytes]
+  const idx = noSp.indexOf('62');
+  if(idx===-1) return null;
+  const data = noSp.substring(idx+6); // Sauter "62 XX XX"
+  if(data.length<4) return null;
+  // Essai 3 bytes little-endian puis big-endian
+  const b3be = parseInt(data.substring(0,6),16);
+  const b4be = parseInt(data.substring(0,8),16);
+  const b2be = parseInt(data.substring(0,4),16);
+  // Valeur raisonnable entre 100 et 1 500 000 km
+  for(const v of [b3be,b4be,b2be]){
+    if(v>100 && v<1500000) return v;
+  }
+  return null;
+}
+
+function displayOdometer(km,source){
+  const formatted = km.toLocaleString('fr-FR');
+  setHtml('kmVal',formatted+'<span class="u"> km</span>');
+  setTxt('kmSource','Source : '+source);
+  // Afficher aussi sur le dashboard
+  const vc = document.getElementById('vc-km');
+  if(vc) vc.innerHTML=Math.round(km/1000)+'<span class="u">k</span>';
+  bleLog('✓ Kilométrage : '+formatted+' km ('+source+')');
+}
 function stopPolling(){if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}}
-function updateUI(rpm,spd,temp,load,map,maf,thr,volt){
-  const R=rpm!=null?Math.round(rpm):null,S=spd!=null?Math.round(spd):null;
+function setBar(id,pct){ const e=document.getElementById(id); if(e) e.style.width=Math.min(100,Math.max(0,pct))+'%'; }
+
+function updateUI(rpm,spd,temp,load,map,maf,thr,volt,iat,stft,ltft,o2){
+  const R=rpm!=null?Math.round(rpm):null;
+  const S=spd!=null?Math.round(spd):null;
+
+  // ---- Dashboard gauges ----
   if(R!=null){
-    setTxt('g-rpm',R);setTxt('g-spd',S||0);
+    setTxt('g-rpm',R); setTxt('g-spd',S||0);
     const ro=document.getElementById('ring-rpm');if(ro)ro.style.strokeDashoffset=226-(R/6500*226);
     const so=document.getElementById('ring-spd');if(so)so.style.strokeDashoffset=226-((S||0)/180*226);
-    setHtml('lh-rpm',R+'<span class="u">rpm</span>');
-    const bar=document.getElementById('rpm-bar');if(bar)bar.style.width=(R/6500*100)+'%';
-    setHtml('lv-spd',(S||0)+'<span class="u"> km/h</span>');
   }
-  if(temp!=null){setHtml('lv-temp',temp+'<span class="u"> °C</span>');document.getElementById('vc-temp').innerHTML=temp+'<span class="u">°C</span>';}
-  if(load!=null)setHtml('lv-load',load+'<span class="u"> %</span>');
-  if(map!=null)setHtml('lv-map',map+'<span class="u"> kPa</span>');
-  if(maf!=null)setHtml('lv-maf',maf.toFixed(1)+'<span class="u"> g/s</span>');
-  if(thr!=null)setHtml('lv-thr',thr+'<span class="u"> %</span>');
-  if(volt!=null)document.getElementById('vc-volt').innerHTML=volt.toFixed(1)+'<span class="u">V</span>';
+  if(temp!=null && document.getElementById('vc-temp'))
+    document.getElementById('vc-temp').innerHTML=temp+'<span class="u">°C</span>';
+  if(volt!=null && document.getElementById('vc-volt'))
+    document.getElementById('vc-volt').innerHTML=volt.toFixed(1)+'<span class="u">V</span>';
+
+  // ---- Live page : MOTEUR ----
+  if(R!=null){
+    setTxt('lh-rpm',R);
+    setBar('rpm-bar', R/7000*100);
+    setHtml('lv-rpm',R+'<span class="u"> RPM</span>');
+    setBar('bar-rpm', R/7000*100);
+  }
+  if(S!=null){
+    setHtml('lv-spd',S+'<span class="u"> km/h</span>');
+    setBar('bar-spd', S/200*100);
+  }
+  if(temp!=null){
+    setHtml('lv-temp',temp+'<span class="u"> °C</span>');
+    setBar('bar-temp', (temp+40)/255*100);
+  }
+  if(load!=null){
+    setHtml('lv-load',load+'<span class="u"> %</span>');
+    setBar('bar-load', load);
+  }
+  if(volt!=null){
+    setHtml('lv-volt',volt.toFixed(1)+'<span class="u"> V</span>');
+    setBar('bar-volt', (volt-8)/(16-8)*100);
+  }
+
+  // ---- Live page : ADMISSION ----
+  if(maf!=null){
+    setHtml('lv-maf',maf.toFixed(1)+'<span class="u"> g/s</span>');
+    setBar('bar-maf', maf/30*100);
+  }
+  if(map!=null){
+    setHtml('lv-map',map+'<span class="u"> kPa</span>');
+    setBar('bar-map', map/250*100);
+    // Calculer boost approximatif (MAP - pression atmosphérique ~101kPa)
+    const boost = ((map - 101) / 100);
+    if(boost > -0.5){
+      setHtml('lv-boost', boost.toFixed(2)+'<span class="u"> bar</span>');
+      setBar('bar-boost', Math.max(0, boost/2*100));
+    }
+  }
+  if(thr!=null){
+    setHtml('lv-thr',thr+'<span class="u"> %</span>');
+    setBar('bar-thr', thr);
+  }
+  if(iat!=null){
+    setHtml('lv-iat',iat+'<span class="u"> °C</span>');
+    setBar('bar-iat', (iat+40)/120*100);
+  }
+
+  // ---- Live page : CARBURANT ----
+  if(stft!=null){
+    setHtml('lv-stft',(stft>=0?'+':'')+stft.toFixed(1)+'<span class="u"> %</span>');
+    setBar('bar-stft', 50 + stft/50*50);
+  }
+  if(ltft!=null){
+    setHtml('lv-ltft',(ltft>=0?'+':'')+ltft.toFixed(1)+'<span class="u"> %</span>');
+    setBar('bar-ltft', 50 + ltft/50*50);
+  }
+  if(o2!=null){
+    setHtml('lv-o2',o2.toFixed(3)+'<span class="u"> V</span>');
+    setBar('bar-o2', o2/1.275*100);
+  }
 }
 
 /* DTC */
-const DTC_DESC={'P0100':'Débitmètre MAF — circuit','P0105':'Capteur MAP','P0110':'Capteur temp air admission','P0115':'Capteur temp refroidissement','P0120':'Capteur papillon','P0130':'Sonde O2 banc 1','P0133':'Réponse lente sonde O2','P0171':'Mélange pauvre banc 1','P0172':'Mélange riche banc 1','P0300':'Ratés allumage aléatoires','P0301':'Raté allumage cylindre 1','P0302':'Raté allumage cylindre 2','P0303':'Raté allumage cylindre 3','P0304':'Raté allumage cylindre 4','P0420':'Catalyseur sous le seuil','P0440':'Système évaporation carburant','P0500':'Capteur vitesse'};
+const DTC_DB = {
+  // Alimentation / Injection
+  'P0100':{desc:'Circuit débitmètre MAF défaillant',sys:'Alimentation',sev:'med',detail:'Le capteur de débit massique d\'air (MAF) mesure la quantité d\'air entrant dans le moteur. Un circuit défaillant peut provoquer une mauvaise combustion, une surconsommation et des à-coups.'},
+  'P0101':{desc:'Plage/performance débitmètre MAF',sys:'Alimentation',sev:'med',detail:'Le MAF renvoie des valeurs hors de la plage attendue. Vérifiez les connexions et nettoyez ou remplacez le capteur.'},
+  'P0105':{desc:'Circuit capteur pression admission (MAP)',sys:'Alimentation',sev:'med',detail:'Le capteur MAP mesure la pression dans le collecteur d\'admission. Cause possible : tuyau de dépression percé ou capteur défaillant.'},
+  'P0110':{desc:'Circuit capteur température air admission',sys:'Alimentation',sev:'low',detail:'Le capteur IAT mesure la température de l\'air entrant. Un défaut peut affecter le calcul du mélange air/carburant.'},
+  'P0115':{desc:'Circuit capteur température liquide refroidissement',sys:'Refroidissement',sev:'med',detail:'Le capteur ECT surveille la température du moteur. Un défaut peut empêcher le moteur de passer en boucle fermée et augmenter la consommation.'},
+  'P0120':{desc:'Circuit capteur position papillon (TPS)',sys:'Alimentation',sev:'med',detail:'Le TPS indique la position de la pédale d\'accélérateur. Un défaut peut provoquer des à-coups, des ratés ou un mode dégradé.'},
+  'P0130':{desc:'Sonde lambda O2 — circuit banc 1 capteur 1',sys:'Émissions',sev:'med',detail:'La sonde amont mesure la richesse des gaz d\'échappement avant le catalyseur. Cause possible : sonde usée, fuite d\'air, circuit électrique.'},
+  'P0133':{desc:'Réponse lente sonde O2 banc 1',sys:'Émissions',sev:'med',detail:'La sonde amont réagit trop lentement. Souvent due à une sonde O2 vieillie ou empoisonnée au silicone.'},
+  'P0171':{desc:'Mélange trop pauvre — banc 1',sys:'Alimentation',sev:'med',detail:'L\'ECU ajoute trop de carburant pour compenser un mélange trop pauvre. Causes : fuite d\'air, injecteurs encrassés, MAF défaillant, pompe à carburant faible.'},
+  'P0172':{desc:'Mélange trop riche — banc 1',sys:'Alimentation',sev:'med',detail:'L\'ECU réduit le carburant pour compenser un mélange trop riche. Causes : injecteurs qui fuient, régulateur de pression, sonde O2 défaillante.'},
+  // Allumage / Ratés
+  'P0300':{desc:'Ratés d\'allumage aléatoires détectés',sys:'Allumage',sev:'high',detail:'Des ratés d\'allumage sont détectés sur plusieurs cylindres de façon aléatoire. Causes possibles : bougies usées, bobines défaillantes, injecteurs, fuite de compression.'},
+  'P0301':{desc:'Raté d\'allumage — cylindre 1',sys:'Allumage',sev:'high',detail:'Un raté est détecté sur le cylindre 1. Vérifiez la bougie, la bobine et l\'injecteur de ce cylindre en priorité.'},
+  'P0302':{desc:'Raté d\'allumage — cylindre 2',sys:'Allumage',sev:'high',detail:'Un raté est détecté sur le cylindre 2.'},
+  'P0303':{desc:'Raté d\'allumage — cylindre 3',sys:'Allumage',sev:'high',detail:'Un raté est détecté sur le cylindre 3.'},
+  'P0304':{desc:'Raté d\'allumage — cylindre 4',sys:'Allumage',sev:'high',detail:'Un raté est détecté sur le cylindre 4.'},
+  // Catalyseur / Émissions
+  'P0420':{desc:'Rendement catalyseur sous le seuil — banc 1',sys:'Émissions',sev:'med',detail:'Le catalyseur ne convertit plus suffisamment les gaz toxiques. Peut indiquer un catalyseur usé, une sonde O2 défaillante ou des ratés d\'allumage non traités.'},
+  'P0440':{desc:'Système évaporation carburant (EVAP)',sys:'Émissions',sev:'low',detail:'Le système EVAP capte les vapeurs d\'essence du réservoir. Une fuite ou un bouchon de réservoir mal fermé peut déclencher ce code.'},
+  // EGR
+  'P0400':{desc:'Flux EGR insuffisant détecté',sys:'EGR',sev:'med',detail:'Le système EGR (recirculation gaz d\'échappement) renvoie des gaz dans l\'admission pour réduire les NOx. Un flux insuffisant indique une vanne EGR encrassée ou bloquée.'},
+  'P0401':{desc:'Débit EGR insuffisant',sys:'EGR',sev:'med',detail:'La vanne EGR est probablement bloquée en position fermée ou le tuyau est encrassé. Nettoyage ou remplacement nécessaire.'},
+  'P0402':{desc:'Débit EGR excessif',sys:'EGR',sev:'med',detail:'La vanne EGR est bloquée en position ouverte, causant un mélange trop riche et des à-coups.'},
+  'P0403':{desc:'Circuit commande EGR — défaillance',sys:'EGR',sev:'med',detail:'Le circuit électrique de la vanne EGR présente un défaut (circuit ouvert, court-circuit). Vérifiez le connecteur et le faisceau de la vanne EGR. Peut provoquer un mode dégradé sur Skoda/VAG.'},
+  'P0404':{desc:'Plage/performance circuit EGR',sys:'EGR',sev:'med',detail:'La vanne EGR ne répond pas comme attendu. Nettoyage ou remplacement de la vanne recommandé.'},
+  // Turbo
+  'P0234':{desc:'Surpression turbocompresseur',sys:'Turbo',sev:'high',detail:'La pression de suralimentation dépasse les limites. Vérifiez la vanne de décharge (wastegate), les durites de turbo et le capteur de pression d\'admission.'},
+  'P0235':{desc:'Circuit capteur pression turbo banc 1',sys:'Turbo',sev:'med',detail:'Le capteur de pression turbo présente un défaut électrique.'},
+  'P0299':{desc:'Sous-pression turbocompresseur',sys:'Turbo',sev:'high',detail:'Le turbo ne monte pas assez en pression. Causes : wastegate bloquée ouverte, fuite de durite, vane du turbo encrassée.'},
+  // Vanne papillon
+  'P0500':{desc:'Circuit capteur vitesse véhicule',sys:'Transmission',sev:'med',detail:'Le capteur de vitesse ne transmet pas de signal correct. Peut affecter l\'ABS, le régulateur de vitesse et la boîte automatique.'},
+  'P0505':{desc:'Système de ralenti',sys:'Alimentation',sev:'med',detail:'Le système de contrôle du ralenti présente un défaut. Le moteur peut caler ou avoir un régime instable au ralenti.'},
+};
+// Compatibilité avec ancien code
+const DTC_DESC = Object.fromEntries(Object.entries(DTC_DB).map(([k,v])=>[k,v.desc]));
 async function scanDTC(){
   if(!bleChar){toast('Connectez d\'abord le boîtier');return;}
   toast('Scan DTC en cours...');
   try{const r=await sendCommand('03\r',4000);displayDTC(parseDTC(r));}catch(e){toast('Erreur : '+e.message);}
 }
 function parseDTC(raw){
-  const codes=[],hex=raw.replace(/\s/g,'').replace(/43/,'');
-  for(let i=0;i<hex.length-3;i+=4){
-    const b1=parseInt(hex.substr(i,2),16),b2=parseInt(hex.substr(i+2,2),16);
-    if(!b1&&!b2)continue;
-    const types=['P','C','B','U'],type=types[(b1>>6)&3];
-    const code=type+((b1&0x3F).toString(16).toUpperCase())+(b2.toString(16).toUpperCase().padStart(2,'0'));
-    if(code!=='P0000')codes.push(code);
+  const codes=[];
+  // Nettoyer la réponse
+  let clean = raw.replace(/[\r\n>]/g,' ').toUpperCase().trim();
+  // Retirer le header de réponse "43" (mode 03 réponse)
+  const noSpace = clean.replace(/\s/g,'');
+  // Trouver la position après "43"
+  let startHex = noSpace;
+  const idx43 = noSpace.indexOf('43');
+  if(idx43 !== -1) startHex = noSpace.substring(idx43+2);
+
+  // Parser les paires d'octets
+  for(let i=0; i<startHex.length-3; i+=4){
+    const b1=parseInt(startHex.substr(i,2),16);
+    const b2=parseInt(startHex.substr(i+2,2),16);
+    if(isNaN(b1)||isNaN(b2)) continue;
+    if(b1===0&&b2===0) continue; // Padding
+    const types=['P','C','B','U'];
+    const type=types[(b1>>6)&3];
+    // Les 6 bits restants du b1 + b2 complet = code
+    const num1 = (b1&0x3F).toString(16).toUpperCase().padStart(2,'0');
+    const num2 = b2.toString(16).toUpperCase().padStart(2,'0');
+    const code = type+num1+num2;
+    if(code !== 'P0000' && !codes.includes(code)) codes.push(code);
+    if(codes.length > 10) break; // Sécurité
   }
   return codes;
 }
@@ -990,10 +1461,28 @@ function displayDTC(codes){
   if(!codes.length){document.getElementById('dtcSummary').classList.add('clean');return;}
   document.getElementById('dtcSummary').classList.remove('clean');
   codes.forEach(code=>{
-    const desc=DTC_DESC[code]||'Code inconnu — consulter un mécanicien';
-    const sev=code.startsWith('P030')||code==='P0300'?'high':'med';
-    list.innerHTML+=`<div class="dtc-card"><div class="dtc-head"><div class="dtc-code">${code}</div><div class="dtc-sev ${sev}">${sev==='high'?'Élevé':'Moyen'}</div></div><div class="dtc-desc">${desc}</div></div>`;
+    const info=DTC_DB[code]||{desc:'Code inconnu — consulter un mécanicien',sys:'Inconnu',sev:'med',detail:'Ce code n\'est pas encore dans notre base de données. Consultez un mécanicien pour obtenir une description précise.'};
+    const sevLabel=info.sev==='high'?'Élevé':info.sev==='low'?'Faible':'Moyen';
+    list.innerHTML+=`<div class="dtc-card ${info.sev==='low'?'pending':''}" onclick="showDTCDetail('${code}')" style="cursor:pointer">
+      <div class="dtc-head">
+        <div class="dtc-code">${code}</div>
+        <div class="dtc-sev ${info.sev}">${sevLabel}</div>
+      </div>
+      <div class="dtc-desc">${info.desc}</div>
+      <div class="dtc-sys">${info.sys} · Tap pour les détails →</div>
+    </div>`;
   });
+}
+
+function showDTCDetail(code){
+  const info=DTC_DB[code]||{desc:'Code inconnu',sys:'Inconnu',sev:'med',detail:'Consultez un mécanicien.'};
+  const sevLabel=info.sev==='high'?'⚠️ Urgent':info.sev==='low'?'ℹ️ Mineur':'⚡ Moyen';
+  document.getElementById('dtcModalCode').textContent=code;
+  document.getElementById('dtcModalTitle').textContent=info.desc;
+  document.getElementById('dtcModalSev').textContent=sevLabel;
+  document.getElementById('dtcModalSys').textContent=info.sys;
+  document.getElementById('dtcModalDetail').textContent=info.detail;
+  document.getElementById('dtcModal').classList.add('show');
 }
 async function clearDTC(){
   if(!bleChar){toast('Connectez d\'abord le boîtier');return;}
